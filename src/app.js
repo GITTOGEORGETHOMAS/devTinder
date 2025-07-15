@@ -1,19 +1,18 @@
-const express = require('express');
-
+const express = require("express");
 const app = express();
 
-app.get('/', (req,res) => {
-    res.send("🚀 DevTinder Home API is live!");
+app.get("/user", (req, res) => {
+  res.send({ firstName: "Gitto", lastName: "Thomas" });
+});
+
+app.post("/user", (req,res) => {
+    res.send("Data successfully saved to the database!");
+});
+
+app.delete("/user", (req,res) => {
+    res.send("Deleted Successfully");
 })
 
-app.get('/profile', (req,res) => {
-     res.send("👤 DevTinder Profile Page");
-})
-
-app.use((req,res) => {
-    res.status(404).send("❌ Route not found");
-})
-app.listen(3000, () => {
-    console.log("Server is successfully listening on port 3000...");
-    
+app.listen(7777, () => {
+  console.log("Server is running on port 7777...");
 });
