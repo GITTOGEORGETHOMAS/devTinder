@@ -1,25 +1,19 @@
 const express = require("express");
 const app = express();
-const { adminAuth,userAuth } = require("./middlewares/auth");
 
-app.use("/admin", adminAuth); // Apply middleware to all routes starting with /admin
-
-
-
-app.post("/user/login", (req,res) => {
-   res.send("User Logged In");
+app.get("/getUserData", (req, res) => {
+  try {
+    throw new Error("Something went wrong");
+    res.send("User Data");
+  } catch (error) {
+    res.status(500).send("Oops! User data could not be fetched.");
+  }
 });
 
-app.get("/user/data", userAuth, (req, res) => {
-  res.send("User Data sent"); // Not protected
-});
-
-app.get("/admin/getAllData", (req, res) => {
-   res.send("All Data Sent"); // Protected
-});
-
-app.get("/admin/deleteUser", (req, res) => {
-  res.send("Deleted a user"); // Protected
+// Error-handling middleware
+app.use((err, req, res, next) => {
+  console.error("Error caught:", err.message); // Log it for internal debugging
+  res.status(500).send("Something went wrong"); // Generic message to user
 });
 
 app.listen(7777, () => {
